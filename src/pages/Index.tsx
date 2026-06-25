@@ -1,9 +1,77 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Icon from "@/components/ui/icon"
 
+const publishers = [
+  { id: "ast", label: "АСТ" },
+  { id: "eksmo", label: "Эксмо" },
+  { id: "mahaon", label: "Махаон" },
+]
+
+const projects = {
+  ast: [
+    {
+      title: "Выдающиеся звери (BEASTARS)",
+      description:
+        "Манга Пару Итагаки о мире антропоморфных животных, где хищники и травоядные пытаются мирно сосуществовать. Главный герой — застенчивый серый волк Легоси, который влюбляется в маленькую белую крольчиху Харуко. Серия затрагивает темы предрассудков, самоидентификации и поиска своего места в обществе.",
+      volumes: "22 тома",
+      language: "Японский",
+      tags: ["Сёнэн", "Фэнтези", "Драма"],
+      image: "https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/5d414535-fb5b-4119-b51b-deaa5f7252de.jpg",
+      publisher: "АСТ",
+    },
+  ],
+  eksmo: [
+    {
+      title: "Крутой учитель Онидзука (GTO)",
+      description:
+        "Культовая манга Тору Фудзисавы о бывшем байкере и хулигане Экиити Онидзуке, который стал школьным учителем. Несмотря на сомнительное прошлое, он оказывается лучшим педагогом для трудных подростков благодаря своей искренности и нестандартному подходу. Серия стала классикой жанра и получила несколько экранизаций.",
+      volumes: "25 томов",
+      language: "Японский",
+      tags: ["Сёнэн", "Комедия", "Школа"],
+      image: "https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/701a9580-2b55-4dc6-bba1-6024567c168d.jpg",
+      publisher: "Эксмо",
+    },
+    {
+      title: "BECK",
+      description:
+        "Манга Харольда Сакуиси о становлении рок-группы глазами обычного школьника Коюки. Встреча с харизматичным музыкантом Рюске меняет его жизнь навсегда — вместе они создают группу BECK и пробиваются на музыкальную сцену. Реалистичное изображение мира рок-музыки, дружбы и взросления.",
+      volumes: "34 тома",
+      language: "Японский",
+      tags: ["Сёнэн", "Музыка", "Слайс-оф-лайф"],
+      image: "https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/49bc3de0-9a1b-4fe9-9cc0-a97eab735115.jpg",
+      publisher: "Эксмо",
+    },
+    {
+      title: "GACHIAKUTA",
+      description:
+        "Манга Дзюн Кагуры о мире, разделённом на небесный город и подземную свалку. Юный Руди, несправедливо обвинённый в убийстве, оказывается выброшен в Бездну — гигантскую свалку, где выжить помогает способность превращать мусор в оружие. Динамичный экшен с глубокими социальными темами.",
+      volumes: "выходит (8+ томов)",
+      language: "Японский",
+      tags: ["Сёнэн", "Экшен", "Фэнтези"],
+      image: "https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/a75bf3c3-11ae-439c-a4a2-3cbf35aebd99.jpg",
+      publisher: "Эксмо",
+    },
+  ],
+  mahaon: [
+    {
+      title: "Из рыцаря в леди",
+      description:
+        "Романтическая фэнтези-манхва по роману Сон Херим. Главная героиня Аселла — лучший рыцарь королевства, всю жизнь скрывавшая свой пол. После неожиданного превращения ей приходится учиться быть женщиной, параллельно распутывая придворные интриги. Изящная история о силе духа, женской идентичности и любви.",
+      volumes: "выходит",
+      language: "Корейский",
+      tags: ["Манхва", "Романтика", "Фэнтези"],
+      image: "https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/51ebe781-31bc-4c21-9697-d064d00c57bd.jpg",
+      publisher: "Махаон",
+    },
+  ],
+}
+
 export default function Portfolio() {
+  const [activePublisher, setActivePublisher] = useState("ast")
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Navigation */}
@@ -12,18 +80,10 @@ export default function Portfolio() {
           <div className="flex justify-between items-center h-16">
             <div className="font-bold text-xl text-slate-900">MangaStudio</div>
             <div className="hidden md:flex space-x-8">
-              <a href="#about" className="text-slate-600 hover:text-slate-900 transition-colors">
-                О студии
-              </a>
-              <a href="#services" className="text-slate-600 hover:text-slate-900 transition-colors">
-                Услуги
-              </a>
-              <a href="#projects" className="text-slate-600 hover:text-slate-900 transition-colors">
-                Работы
-              </a>
-              <a href="#contact" className="text-slate-600 hover:text-slate-900 transition-colors">
-                Контакты
-              </a>
+              <a href="#about" className="text-slate-600 hover:text-slate-900 transition-colors">О студии</a>
+              <a href="#services" className="text-slate-600 hover:text-slate-900 transition-colors">Услуги</a>
+              <a href="#projects" className="text-slate-600 hover:text-slate-900 transition-colors">Работы</a>
+              <a href="#contact" className="text-slate-600 hover:text-slate-900 transition-colors">Контакты</a>
             </div>
           </div>
         </div>
@@ -47,7 +107,11 @@ export default function Portfolio() {
                   Обсудить заказ
                   <Icon name="ArrowRight" className="ml-2 h-4 w-4" />
                 </Button>
-                <Button variant="outline" size="lg">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+                >
                   Смотреть работы
                 </Button>
               </div>
@@ -83,7 +147,6 @@ export default function Portfolio() {
               Команда переводчиков, редакторов и верстальщиков, влюблённых в мангу и комиксы
             </p>
           </div>
-
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl font-bold text-slate-900 mb-6">Делаем мангу понятной русскому читателю</h3>
@@ -133,7 +196,6 @@ export default function Portfolio() {
               Полный цикл локализации манги и комиксов для издательств
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
@@ -141,9 +203,7 @@ export default function Portfolio() {
                   <Icon name="Languages" className="h-6 w-6 text-blue-600" />
                 </div>
                 <CardTitle>Перевод и редактура</CardTitle>
-                <CardDescription>
-                  Литературный перевод с сохранением авторского стиля и тщательная редактура текста.
-                </CardDescription>
+                <CardDescription>Литературный перевод с сохранением авторского стиля и тщательная редактура текста.</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-slate-600">
@@ -154,7 +214,6 @@ export default function Portfolio() {
                 </ul>
               </CardContent>
             </Card>
-
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
@@ -172,7 +231,6 @@ export default function Portfolio() {
                 </ul>
               </CardContent>
             </Card>
-
             <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
@@ -197,87 +255,65 @@ export default function Portfolio() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Избранные работы</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">Наши работы</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Тома манги, которые мы перевели и сверстали для издательств
+              Тайтлы, которые мы локализовали для ведущих российских издательств
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="relative h-48 bg-gradient-to-r from-blue-500 to-purple-600">
-                <img
-                  src="https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/103d3da0-a664-446a-a079-2bf5ccc35615.jpg"
-                  alt="Локализованная обложка манги"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Сёнэн-серия, 12 томов</CardTitle>
-                    <CardDescription>
-                      Полная локализация многотомной серии: перевод с японского, вёрстка и оформление обложек.
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="icon">
-                      <Icon name="ExternalLink" className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <Badge variant="outline">Японский</Badge>
-                  <Badge variant="outline">Вёрстка</Badge>
-                  <Badge variant="outline">Обложки</Badge>
-                  <Badge variant="outline">Печать</Badge>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <Icon name="Star" className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span>Тираж 15 000 экземпляров</span>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Publisher Tabs */}
+          <div className="flex gap-2 mb-10 justify-center flex-wrap">
+            {publishers.map((pub) => (
+              <button
+                key={pub.id}
+                onClick={() => setActivePublisher(pub.id)}
+                className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all ${
+                  activePublisher === pub.id
+                    ? "bg-blue-600 text-white shadow-md"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                {pub.label}
+              </button>
+            ))}
+          </div>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="relative h-48 bg-gradient-to-r from-green-500 to-blue-600">
-                <img
-                  src="https://cdn.poehali.dev/projects/dff8357b-9ae4-4567-904f-0c2710af2a8a/files/3d13fbc4-11f0-4549-8071-6cb606e63d15.jpg"
-                  alt="Серия переведённых томов манги"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle>Манхва, 6 томов</CardTitle>
-                    <CardDescription>
-                      Цветная манхва с перерисовкой звуков, ретушью и цветокоррекцией всех разворотов.
-                    </CardDescription>
+          {/* Project Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects[activePublisher as keyof typeof projects].map((project) => (
+              <Card key={project.title} className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden">
+                <div className="relative h-56 bg-gradient-to-r from-blue-500 to-purple-600">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg leading-snug">{project.title}</CardTitle>
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {project.tags.map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">{tag}</Badge>
+                    ))}
                   </div>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="icon">
-                      <Icon name="ExternalLink" className="h-4 w-4" />
-                    </Button>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-slate-600 leading-relaxed mb-4">{project.description}</p>
+                  <div className="flex items-center justify-between text-xs text-slate-500">
+                    <div className="flex items-center gap-1.5">
+                      <Icon name="BookOpen" className="h-3.5 w-3.5" />
+                      <span>{project.volumes}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Icon name="Languages" className="h-3.5 w-3.5" />
+                      <span>{project.language}</span>
+                    </div>
+                    <Badge className="bg-blue-100 text-blue-800 text-xs">{project.publisher}</Badge>
                   </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <Badge variant="outline">Корейский</Badge>
-                  <Badge variant="outline">Ретушь</Badge>
-                  <Badge variant="outline">Цвет</Badge>
-                  <Badge variant="outline">Звуки</Badge>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <Icon name="Star" className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span>Сдано за 3 месяца</span>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -291,7 +327,6 @@ export default function Portfolio() {
               Готовы взяться за локализацию вашей серии? Расскажите о проекте — рассчитаем сроки и стоимость.
             </p>
           </div>
-
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
               <h3 className="text-2xl font-bold mb-6">Связаться со студией</h3>
@@ -299,7 +334,6 @@ export default function Portfolio() {
                 Будь то один том или многотомная серия — мы возьмём на себя перевод, вёрстку и
                 оформление, чтобы вы получили готовый к печати макет.
               </p>
-
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -310,7 +344,6 @@ export default function Portfolio() {
                     <p className="text-slate-300">hello@mangastudio.ru</p>
                   </div>
                 </div>
-
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
                     <Icon name="Send" className="h-6 w-6" />
@@ -320,7 +353,6 @@ export default function Portfolio() {
                     <p className="text-slate-300">@mangastudio</p>
                   </div>
                 </div>
-
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
                     <Icon name="Phone" className="h-6 w-6" />
@@ -332,7 +364,6 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
-
             <Card className="bg-slate-800 border-slate-700">
               <CardHeader>
                 <CardTitle className="text-white">Оставить заявку</CardTitle>
